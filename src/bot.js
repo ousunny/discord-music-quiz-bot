@@ -32,8 +32,13 @@ client.on('message', (message) => {
 
     if (!client.commands.has(CMD_NAME)) return;
 
+    const command = client.commands.get(CMD_NAME);
+
+    if (command.args && !args.length)
+        return message.reply(`You didn't provide any arguments!`);
+
     try {
-        client.commands.get(CMD_NAME).execute(message, args);
+        command.execute(message, args);
     } catch (err) {
         console.error(err);
         message.reply('An error occured while trying to execute that command.');
