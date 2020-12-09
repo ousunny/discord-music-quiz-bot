@@ -3,7 +3,7 @@ const { chooseRandomPlayer } = require('../utils/utils');
 module.exports = {
     name: 'start',
     description: 'Start the game',
-    execute(message, args) {
+    async execute(message, args) {
         if (message.client.answer) return;
 
         if (!message.client.voiceChannel)
@@ -15,6 +15,8 @@ module.exports = {
             return message.channel.send(
                 'There are not enough players to start the game.\nUse the following command to join the game:\n!join'
             );
+
+        message.client.connection = await message.client.voiceChannel.join();
 
         message.client.currentPlayer = chooseRandomPlayer(
             message.client.players
