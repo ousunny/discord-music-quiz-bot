@@ -27,6 +27,8 @@ module.exports = {
                 `${message.author} is correct!\nThe answer is "${message.client.answer}"\n`
             );
 
+            message.client.dispatcher.destroy();
+            message.client.voiceChannel.leave();
             message.client.currentPlayer = message.author;
             message.client.answer = null;
 

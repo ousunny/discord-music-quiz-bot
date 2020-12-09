@@ -18,13 +18,20 @@ module.exports = {
         const song = args.shift();
         const answer = args.join(' ');
 
-        console.log(answer);
         message.client.answer = answer;
 
         message.author.send('Your request has been accepted!');
 
+        playSong(message.client, song);
+
         message.client.textChannel.send(
-            'The song has been selected. You can begin guessing now'
+            'The song has been selected.\nPlaying...\n\nYou can begin guessing now.'
         );
     },
 };
+
+function playSong(client, url) {
+    client.dispatcher = client.connection.play(
+        ytdl(url, { filter: 'audioonly' })
+    );
+}
