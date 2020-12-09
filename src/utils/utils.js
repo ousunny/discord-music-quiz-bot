@@ -1,5 +1,5 @@
-function choosePlayer(players) {
+function chooseRandomPlayer(players) {
     return players[Math.floor(Math.random() * players.length)];
 }
 
-module.exports = { choosePlayer };
+module.exports = { chooseRandomPlayer };
