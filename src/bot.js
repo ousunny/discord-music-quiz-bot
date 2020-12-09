@@ -9,6 +9,7 @@ const client = new Client();
 const PREFIX = '!';
 
 client.commands = new Collection();
+client.players = [];
 
 const commandDir = path.join(__dirname, 'commands');
 const commandFiles = fs
