@@ -5,6 +5,8 @@ module.exports = {
     description: 'Let player select song for the guesser',
     args: true,
     execute(message, args) {
+        if (message.client.answer) return;
+
         if (message.client.currentPlayer !== message.author)
             return message.author.send('You are not the current player');
 

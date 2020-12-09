@@ -3,6 +3,8 @@ module.exports = {
     description: 'Set settings for bot',
     args: true,
     execute(message, args) {
+        if (message.client.answer) return;
+
         switch (args[0]) {
             case 'voice':
                 message.client.voiceChannel = message.client.channels.cache.get(

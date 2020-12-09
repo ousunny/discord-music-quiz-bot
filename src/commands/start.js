@@ -4,6 +4,8 @@ module.exports = {
     name: 'start',
     description: 'Start the game',
     execute(message, args) {
+        if (message.client.answer) return;
+
         if (!message.client.voiceChannel)
             return message.reply('Set a voice channel for the game');
         if (!message.client.textChannel)

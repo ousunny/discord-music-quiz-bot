@@ -28,6 +28,7 @@ module.exports = {
             );
 
             message.client.currentPlayer = message.author;
+            message.client.answer = null;
 
             message.channel.send(
                 `${message.client.currentPlayer} has been selected`
