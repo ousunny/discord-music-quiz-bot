@@ -19,6 +19,7 @@ module.exports = {
         const answer = args.join(' ');
 
         message.client.answer = answer;
+        message.client.connection = await message.client.voiceChannel.join();
 
         message.author.send('Your request has been accepted!');
 
