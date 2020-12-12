@@ -4,7 +4,7 @@ module.exports = {
     name: 'song',
     description: 'Let player select song for the guesser',
     args: true,
-    execute(message, args) {
+    async execute(message, args) {
         if (message.client.answer) return;
 
         if (message.client.currentPlayer !== message.author)
