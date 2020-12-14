@@ -6,23 +6,12 @@ module.exports = {
     name: 'start',
     description: 'Start the game',
     async execute(message, args) {
-        const settings = await Settings.findOne({
-            where: { guildId: message.guild.id },
-        });
+        if (!message.client.voiceChannel)
+            return message.reply('Set a voice channel for the game');
+        if (!message.client.textChannel)
+            return message.reply('Set a text channel for the game');
 
-        if (!settings) {
-            if (!message.client.voiceChannel)
-                return message.reply('Set a voice channel for the game');
-            if (!message.client.textChannel)
-                return message.reply('Set a text channel for the game');
-        } else {
-            message.client.voiceChannel = message.client.channels.cache.get(
-                settings.voiceChannel
-            );
-            message.client.textChannel = message.client.channels.cache.get(
-                settings.textChannel
-            );
-        }
+        if (message.channel.id !== message.client.textChannel.id) return;
 
         if (message.client.answer) return;
 

@@ -4,7 +4,10 @@ module.exports = {
     name: 'answer',
     description: 'Provide answer to song',
     args: true,
+    channels: true,
     execute(message, args) {
+        if (message.channel.id !== message.client.textChannel.id) return;
+
         if (!message.client.currentPlayer)
             return message.channel.send(
                 'There are missing settings. Please set them before proceeding.'
@@ -15,15 +18,10 @@ module.exports = {
                 `The current song chooser can't answer the question!`
             );
 
-        if (message.channel.id !== message.client.textChannel.id)
-            return message.channel.send(
-                `Please send your answer to ${message.client.textChannel}`
-            );
-
         const answer = args.join(' ');
 
         if (message.client.answer === answer) {
-            message.client.textChannel.send(
+            message.channel.send(
                 `${message.author} is correct!\nThe answer is "${message.client.answer}"\n`
             );
 

@@ -1,21 +1,23 @@
 module.exports = {
     name: 'join',
     description: 'Join the game',
+    channels: true,
     execute(message, args) {
+        if (message.channel.id !== message.client.textChannel.id) return;
+
         if (message.client.answer) return;
 
-        if (!message.client.voiceChannel)
-            return message.channel.send('Please set the voice channel first');
-
         if (message.client.players.includes(message.author))
-            return message.reply('You already joined the game!');
+            return message.channel.send(
+                `${message.author}, you have already joined the game!`
+            );
 
         message.client.players.push(message.author);
 
-        message.reply('You have joined the game!');
+        message.channel.send(`${message.author} has joined the game!`);
 
         if (!message.member.voice.channel)
-            message.reply(
+            message.channel.send(
                 `Please join the voice channel ${message.client.voiceChannel}`
             );
 

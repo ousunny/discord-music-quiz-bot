@@ -23,8 +23,21 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-client.once('ready', () => {
+client.once('ready', (message) => {
     Settings.sync();
+    client.guilds.cache.map(async (guild) => {
+        const settings = await Settings.findOne({
+            where: { guildId: guild.id },
+        });
+        if (settings) {
+            client.voiceChannel = client.channels.cache.get(
+                settings.voiceChannel
+            );
+            client.textChannel = client.channels.cache.get(
+                settings.textChannel
+            );
+        }
+    });
     console.log('Bot is ready');
 });
 
@@ -37,6 +50,12 @@ client.on('message', (message) => {
     if (!client.commands.has(CMD_NAME)) return;
 
     const command = client.commands.get(CMD_NAME);
+
+    if (
+        command.channels &&
+        (!message.client.voiceChannel || !message.client.textChannel)
+    )
+        return;
 
     if (command.args && !args.length)
         return message.reply(`You didn't provide any arguments!`);

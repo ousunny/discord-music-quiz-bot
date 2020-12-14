@@ -4,6 +4,7 @@ module.exports = {
     name: 'song',
     description: 'Let player select song for the guesser',
     args: true,
+    channels: true,
     async execute(message, args) {
         if (message.client.answer) return;
 
@@ -25,7 +26,7 @@ module.exports = {
 
         playSong(message.client, song);
 
-        message.client.textChannel.send(
+        message.channel.send(
             'The song has been selected.\nPlaying...\n\nYou can begin guessing now.'
         );
     },
