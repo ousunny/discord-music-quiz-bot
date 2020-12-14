@@ -23,8 +23,8 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-client.once('ready', (message) => {
-    Settings.sync();
+client.once('ready', async (message) => {
+    await Settings.sync();
     client.guilds.cache.map(async (guild) => {
         const settings = await Settings.findOne({
             where: { guildId: guild.id },
