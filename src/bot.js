@@ -6,6 +6,8 @@ const { Client, Collection } = require('discord.js');
 
 const client = new Client();
 
+const { Settings } = require('./database/db');
+
 const PREFIX = '!';
 
 client.commands = new Collection();
@@ -22,6 +24,7 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
+    Settings.sync();
     console.log('Bot is ready');
 });
 
