@@ -2,9 +2,8 @@ module.exports = {
     name: 'join',
     description: 'Join the game',
     channels: true,
+    onlyInChannel: true,
     execute(message, args) {
-        if (message.channel.id !== message.client.textChannel.id) return;
-
         if (message.client.answer) return;
 
         if (message.client.players.includes(message.author))

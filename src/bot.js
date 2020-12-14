@@ -57,6 +57,16 @@ client.on('message', (message) => {
     )
         return;
 
+    if (
+        command.onlyInChannel &&
+        message.channel.id !== message.client.textChannel.id
+    )
+        return;
+
+    if (command.gameActive && !message.client.currentPlayer) return;
+
+    if (command.dmOnly && message.channel.type !== 'dm') return;
+
     if (command.args && !args.length)
         return message.reply(`You didn't provide any arguments!`);
 

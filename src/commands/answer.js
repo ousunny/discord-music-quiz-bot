@@ -5,14 +5,9 @@ module.exports = {
     description: 'Provide answer to song',
     args: true,
     channels: true,
+    onlyInChannel: true,
+    gameActive: true,
     execute(message, args) {
-        if (message.channel.id !== message.client.textChannel.id) return;
-
-        if (!message.client.currentPlayer)
-            return message.channel.send(
-                'There are missing settings. Please set them before proceeding.'
-            );
-
         if (message.client.currentPlayer === message.author)
             return message.reply(
                 `The current song chooser can't answer the question!`

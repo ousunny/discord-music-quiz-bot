@@ -5,16 +5,18 @@ module.exports = {
     description: 'Let player select song for the guesser',
     args: true,
     channels: true,
+    gameActive: true,
+    dmOnly: true,
     async execute(message, args) {
         if (message.client.answer) return;
-
-        if (message.client.currentPlayer !== message.author)
-            return message.author.send('You are not the current player');
 
         if (message.channel.type !== 'dm')
             return message.author.send(
                 'Please send song request to me directly'
             );
+
+        if (message.client.currentPlayer !== message.author)
+            return message.author.send('You are not the current player');
 
         const song = args.shift();
         const answer = args.join(' ');
@@ -26,7 +28,7 @@ module.exports = {
 
         playSong(message.client, song);
 
-        message.channel.send(
+        message.client.textChannel.send(
             'The song has been selected.\nPlaying...\n\nYou can begin guessing now.'
         );
     },
